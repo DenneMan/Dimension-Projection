@@ -37,12 +37,15 @@ world = []
 world.append(UnitTeseract())
 
 rotation = 0
-
+spin = True
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                spin = not spin
     mpos = pygame.mouse.get_pos()
     mpos = (mpos[0]/SCREENSIZE[0]*720, mpos[1]/SCREENSIZE[1]*180-90)
     if mpos[1] >= 90:
@@ -54,18 +57,17 @@ while True:
     for obj in world:
         for vertexA in obj:
             rotatedA = rotate(Z, W, vertexA, rotation)
-            #rotatedA = rotate(X, V, vertexA, rotation)
             rotatedA = rotate(X, Z, rotatedA, -mpos[0])
             rotatedA = rotate(Y, Z, rotatedA, -mpos[1])
             rotatedA.draw(screen)
             for vertexB in obj:
                 if(dist(vertexA, vertexB) == size):
                     rotatedB = rotate(Z, W, vertexB, rotation)
-                    #rotatedB = rotate(X, V, vertexB, rotation)
                     rotatedB = rotate(X, Z, rotatedB, -mpos[0])
                     rotatedB = rotate(Y, Z, rotatedB, -mpos[1])
                     connect(rotatedA, rotatedB, screen)
 
-    rotation += 0.3
+    if spin:
+        rotation += 0.3
 
     pygame.display.flip()

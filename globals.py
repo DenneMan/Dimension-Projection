@@ -1,4 +1,4 @@
-OFFSET = 500
+OFFSET = 400
 
 X = 0
 Y = 1
@@ -6,4 +6,4 @@ Z = 2
 W = 3
 V = 4
 
-SCREENSIZE = (1000, 1000)
+SCREENSIZE = (800, 800)
